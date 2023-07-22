@@ -3,7 +3,15 @@ name: Get Unity license activation file 🔐
 on: workflow_dispatch
 
 jobs:
+    checkLicense:
+        name: Check for Unity license
+        runs-on: ubuntu-latest
+        steps:
+            -name: Fail - No license
+            if: ${{ !startWith(env.UNITY_LICENSEm'<') }}
+            run: exit 1
   requestManualActivationFile:
+    needs: checkLicense
     name: Request manual activation file 🔑
     runs-on: ubuntu-latest
     steps:
